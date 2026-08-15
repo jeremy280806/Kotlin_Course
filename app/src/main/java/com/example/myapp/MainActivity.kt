@@ -2,56 +2,38 @@ package com.example.myapp
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-class MainActivity : AppCompatActivity() {
-    // val angkaBulat: Int = 4
-    // val angkaBulat: Int? = null
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
 
-    /*
-    val angkaDecimal: Double = 14.3
-    val angkaPanjang: Long = 90000000000000000L
+class   MainActivity : AppCompatActivity() {
 
-    val karakter: Char = 'A'
-    var kata: String = "Ini adalah contoh teks panjang" // val tidak diubah nama variabel nya
-
-    var benar: Boolean = true // ini untuk deklarasi var yang bisa diubah (variabel dynamic)
-    val salah: Boolean = false // variabel static
-
-    val angkaArray: Array<Int> = arrayOf(1, 2, 3, 4, 5)
-    val stringArray: Array<String> = arrayOf("Aku", "Adalah", "Programmer")
-    val booleanArray: Array<Boolean> = arrayOf(true, false, true)
-    */
-
-
-    var angkaBulat: Int = 1
-
-    fun hitung(){ // Int? untuk menandakan null
-        angkaBulat++ // angkaBulat += 1
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val textView: TextView = findViewById(R.id.text_view)
-        val btnHitung: Button = findViewById(R.id.btn_hitung)
+        val mainLayout: ConstraintLayout = findViewById(R.id.main_layout)
+        val editText: EditText = findViewById(R.id.edit_text)
+        val btnClick: Button = findViewById(R.id.btn_click)
 
-        btnHitung.setOnClickListener {
-            hitung()
-            textView.text = angkaBulat.toString()
+        btnClick.setOnClickListener {
+            val teks: String = editText.text.toString()
+            Snackbar.make(mainLayout, teks, Snackbar.LENGTH_LONG).show()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("My App")
+            builder.setMessage(teks)
+            builder.setPositiveButton("Tutup"){
+                dialog, which ->
+                dialog.dismiss()
+            }
+            val dialog = builder.create()
+            dialog.show()
         }
-
-        /*
-        if(angkaBulat == 4){
-            benar = true
-            kata = "Aku adalah pelajar"
-        }
-        else{
-            benar = false
-        }
-
-         */
     }
 }
